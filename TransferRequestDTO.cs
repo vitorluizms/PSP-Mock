@@ -1,4 +1,4 @@
-public class TransferRequestDTO
+public class TransferStatus
 {
   public required OriginDTO Origin { get; set; }
   public required DestinyDTO Destiny { get; set; }
