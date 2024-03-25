@@ -19,8 +19,8 @@ public class UserDTO
 
 public class AccountDTO
 {
-  public required string Number { get; set; }
-  public required string Agency { get; set; }
+  public required int Number { get; set; }
+  public required int Agency { get; set; }
 }
 
 public class DestinyDTO

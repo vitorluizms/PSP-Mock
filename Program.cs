@@ -1,3 +1,6 @@
+using System.Text;
+using System.Text.Json;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -28,13 +31,28 @@ app.MapPatch("/payments/pix", (TransferStatusDTO dto) =>
   return Results.NoContent();
 });
 
+app.MapPost("/concilliation/payments", async (HttpContext context) =>
+{
+  string requestBody;
+  using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
+  {
+    requestBody = await reader.ReadToEndAsync();
+  }
+
+  Console.WriteLine($"Request Body: {requestBody}");
+
+  var dto = JsonSerializer.Deserialize<PostConcilliationBody>(requestBody);
+
+  return Results.NoContent();
+});
+
 
 static int GenerateRandomTime()
 {
   Random random = new();
   int lowPercentage = 5; // 5% das reqs são lentas
   int percentageChoice = random.Next(1, 101);
-  if (percentageChoice <= lowPercentage) return random.Next(60000, 90000); // TODO: you can change
+  if (percentageChoice <= lowPercentage) return random.Next(120000, 150000); // TODO: you can change
   else return random.Next(100, 500);
 }
 
